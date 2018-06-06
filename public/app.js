@@ -1,15 +1,33 @@
+//const nodeMailer = require('nodemailer');
+
+
 getMemeArrayData();
 let memeMode = false; 
 const memeUrls = []
 const postItColors = ['#FFFFA5', '#ff7eb9', '#ff65a3','#7afcff', '#feff9c', "#fff740"];
+const userGeneratedPostItContentArray = [];
+
+//document.querySelector('#emailEntrySubmit').addEventListener('click', function(event){
+//    
+//    const userEmail = document.querySelector('#emailEntry').value;
+//    sendEmail(userEmail);
+//});
 
 document.querySelector('#postItEntry').addEventListener('keydown',function(event){
 	if(event.key === "Enter"){
+        
+        let userGeneratedPostItContent = this.value
+        userGeneratedPostItContentArray.push(userGeneratedPostItContent);
+        
+        console.log("array", userGeneratedPostItContentArray);
+        
+        postUserGeneratedArray(userGeneratedPostItContentArray);
+        
   	if(memeMode){
-    	appendMemePostIt(this.value);
+    	appendMemePostIt(userGeneratedPostItContent);
     }
     else {
-    	appendPostIt(this.value);
+    	appendPostIt(userGeneratedPostItContent);
     }
 		
     addEventListenerToPositIts();
@@ -125,4 +143,22 @@ fetch('https://api.imgflip.com/get_memes').then(response => response.json())
   .then(json => json.data.memes.map( data => data.url)).then( data =>  memeUrls.push( ...data));
 }
 
+
+function postUserGeneratedArray(array){
+   
+   fetch("https://fierce-earth-50322.herokuapp.com/userPostIts", {
+  method: "post",
+  headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
+  },
+
+  //make sure to serialize your JSON body
+  body: JSON.stringify(array)
+})
+.then( (response) => { 
+   //do something awesome that makes the world a better place
+       
+});
+}
 

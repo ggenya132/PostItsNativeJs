@@ -1,7 +1,18 @@
-body {
-    font-family: 'Roboto', sans-serif;
+.button {
+      font-family: 'Roboto', sans-serif;
+      padding:5px 10px;
+      border: 2px solid black; 
+      max-width: 150px;
+      text-align: center; 
+      margin: auto;
+      cursor: pointer; 
 }
 
+.button:hover {
+  
+    
+   -webkit-animation: rainbowBackground 1s infinite;  
+}
 .postIt {
     font-family: 'Roboto', sans-serif;
   margin: 2px 2px;
@@ -177,5 +188,14 @@ transform:scale(1.2);
 	80%{color: blue;}
 	100%{color: orange;}	
 }
+
+@-webkit-keyframes rainbowBackground{
+	20%{background: red;}
+	40%{background: yellow;}
+	60%{background: green;}
+	80%{background: blue;}
+	100%{background: orange;}	
+}
+
 
 
