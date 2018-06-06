@@ -22,6 +22,7 @@ app.post('/email', function(req,res){
 
     const email = req.body.email;
     sendEmail(email);
+    res.send('Email Sent!')
 });
 
 app.post('/userPostIts', function(req,res){
