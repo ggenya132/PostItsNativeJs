@@ -67,3 +67,6 @@ function generateContentFromPostItArray(array){
     const content = `<h3>You generated the following Post-Its:</h3><ul>${mappedArray.join(' ').trim()}</ul>`;
     return content;
 }
+
+
+app.listen(process.env.PORT || 3000, ()=> console.log('app starting!', process.env.PORT));
