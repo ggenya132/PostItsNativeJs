@@ -1,3 +1,5 @@
+const config = require('./config');
+
 let userGeneratedPostItContentArray = [];
 
 const nodeMailer = require('nodemailer');
@@ -9,6 +11,8 @@ const bodyParser = require('body-parser');
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
+
+console.log('CONFIG:', config);
 
 //BODY PARSER
 app.use(bodyParser.urlencoded({ extended: false}));
@@ -22,6 +26,7 @@ app.post('/email', function(req,res){
 
     const email = req.body.email;
     sendEmail(email);
+    res.send('Email Sent!')
 });
 
 app.post('/userPostIts', function(req,res){
@@ -35,15 +40,15 @@ function sendEmail(email){
   let transporter = nodeMailer.createTransport({
  service: 'gmail',
  auth: {
-        user: 'postitmailer@gmail.com',
-        pass: 'ThisIsASpecialPassWord'
+        user: config.emailAdress,
+        pass: config.emailPassword
     }
       
 
 });
     
           const mailOptions = {
-  from: 'postitmailer@gmail.com', // sender address
+  from: config.emailAdress, // sender address
   to: email, // list of receivers
   subject: 'All your favorite PostIts!', // Subject line
   html:userGeneratedContent// plain text body
@@ -62,6 +67,3 @@ function generateContentFromPostItArray(array){
     const content = `<h3>You generated the following Post-Its:</h3><ul>${mappedArray.join(' ').trim()}</ul>`;
     return content;
 }
-
-
-app.listen(process.env.PORT || 3000, ()=> console.log('app starting!', process.env.PORT));
